@@ -1,0 +1,258 @@
+/* Reset básico para evitar margens e paddings indesejados */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Keyframes de entrada */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Respeita preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  .logo,
+  .cartao,
+  .cartao h1,
+  .subtitulo,
+  .campo,
+  .campo-senha,
+  .botao,
+  .divisor,
+  .rodape {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Página inteira — fundo escuro, conteúdo centralizado vertical e horizontalmente */
+.pagina {
+  min-height: 100svh;
+  background-color: #211F20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: system-ui, 'Segoe UI', sans-serif;
+}
+
+/* Wrapper da logo — espaço abaixo antes do cartão */
+.logo {
+  margin-bottom: 40px;
+  animation: fadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Imagem da logo */
+.logo img {
+  height: 56px;
+  width: auto;
+  display: block;
+}
+
+/* Cartão branco-escuro que contém o formulário */
+.cartao {
+  width: 100%;
+  max-width: 420px;
+  background-color: #2a2829;
+  border: 1px solid #333133;
+  border-radius: 8px;
+  padding: 40px 36px;
+  animation: fadeSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+/* Título do cartão */
+.cartao h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+  animation: fadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+}
+
+/* Subtítulo abaixo do título */
+.subtitulo {
+  font-size: 14px;
+  color: #7a7878;
+  margin-bottom: 32px;
+  animation: fadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+}
+
+/* Campo genérico — label + input empilhados */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+  animation: fadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
+}
+
+/* Label dos campos em maiúsculo e cinza claro */
+.campo label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #b0adad;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+/* Input dos campos — fundo bem escuro */
+.campo input {
+  background-color: #1a1819;
+  border: 1px solid #3a3839;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+/* Placeholder dos inputs em cinza escuro */
+.campo input::placeholder {
+  color: #4a4848;
+}
+
+/* Borda verde ao focar no input */
+.campo input:focus {
+  border-color: #02FE02;
+}
+
+/* Linha com label e link "esqueci senha" lado a lado */
+.linha-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+/* Label da linha com label — mesmo estilo dos outros labels */
+.linha-label label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #b0adad;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+/* Link "esqueci minha senha" em verde */
+.link-esqueci {
+  font-size: 12px;
+  color: #02FE02;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  transition: opacity 0.2s;
+}
+
+/* Hover do link esqueci — reduz opacidade */
+.link-esqueci:hover {
+  opacity: 0.75;
+}
+
+/* Campo de senha — input ocupa largura total */
+.campo-senha input {
+  background-color: #1a1819;
+  border: 1px solid #3a3839;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  width: 100%;
+}
+
+/* Placeholder do campo de senha */
+.campo-senha input::placeholder {
+  color: #4a4848;
+}
+
+/* Borda verde ao focar no campo de senha */
+.campo-senha input:focus {
+  border-color: #02FE02;
+}
+
+/* Wrapper do campo de senha — margem maior embaixo antes do botão */
+.campo-senha {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 28px;
+  animation: fadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both;
+}
+
+/* Botão principal de login — verde com texto escuro */
+.botao {
+  width: 100%;
+  padding: 12px;
+  background-color: #02FE02;
+  color: #211F20;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: opacity 0.2s, transform 0.1s;
+  animation: fadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.44s both;
+}
+
+/* Hover do botão — leve transparência */
+.botao:hover {
+  opacity: 0.88;
+}
+
+/* Clique no botão — feedback visual de pressionar */
+.botao:active {
+  transform: scale(0.99);
+}
+
+/* Linha divisória entre botão e rodapé */
+.divisor {
+  height: 1px;
+  background-color: #333133;
+  margin: 28px 0;
+  animation: fadeIn 0.5s ease 0.52s both;
+}
+
+/* Rodapé com link para cadastro */
+.rodape {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: #7a7878;
+  animation: fadeIn 0.5s ease 0.56s both;
+}
+
+/* Link "criar conta" em verde */
+.rodape a {
+  color: #02FE02;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 4px;
+  transition: opacity 0.2s;
+}
+
+/* Hover do link criar conta */
+.rodape a:hover {
+  opacity: 0.75;
+}
