@@ -23,7 +23,7 @@ function Entrada() {
 
       {/* Cabeçalho com a logo centralizada */}
       <header className="topo">
-        <img src="/Logo.png" alt="Logo" className="logo" />
+        <img src="Logo.png" alt="Logo" className="logo" />
       </header>
 
       {/* Área principal centralizada verticalmente */}

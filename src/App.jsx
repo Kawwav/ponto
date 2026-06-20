@@ -11,7 +11,7 @@ import Entrada from './paginas/entrada'
 
 //git push -u origin main
 
-
+//npm run deploy
 
 function App() {
   return (

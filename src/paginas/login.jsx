@@ -21,7 +21,7 @@ function Login() {
 
       {/* Logo no topo centralizada */}
       <div className="logo">
-        <img src="/Logo.png" alt="Logo" />
+        <img src="Logo.png" alt="Logo" />
       </div>
 
       {/* Card do formulário de login */}
