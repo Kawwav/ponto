@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Login from './paginas/login'
 import Entrada from './paginas/entrada'
-
+import RegistrarEntrada from './paginas/registrarentrada'
 
 //git add .
 
@@ -13,11 +13,13 @@ import Entrada from './paginas/entrada'
 
 //npm run deploy
 
+
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/entrada" element={<Entrada />} />
+      <Route path="/"                   element={<Login />} />
+      <Route path="/entrada"            element={<Entrada />} />
+      <Route path="/registrar-entrada"  element={<RegistrarEntrada />} />
     </Routes>
   )
 }

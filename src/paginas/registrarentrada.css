@@ -1,0 +1,339 @@
+/* ─── Animações ────────────────────────────────────────────────── */
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topo, .formulario, .campo-grupo, .botao-registrar {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+
+/* Página inteira */
+.pagina {
+  min-height: 100svh;
+  background-color: #211F20;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, 'Segoe UI', sans-serif;
+}
+
+/* Cabeçalho */
+.topo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 22px 32px;
+  border-bottom: 1px solid #2e2c2d;
+  gap: 16px;
+  animation: fadeDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Botão voltar */
+.btn-voltar {
+  background: none;
+  border: 1px solid #333133;
+  border-radius: 6px;
+  color: #6a6869;
+  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.btn-voltar:hover {
+  border-color: #02FE02;
+  color: #02FE02;
+}
+
+/* Logo centralizada no topo */
+.logo {
+  height: 36px;
+  width: auto;
+  margin: 0 auto;
+  margin-right: 52px; /* compensa o btn-voltar para ficar visualmente centrado */
+}
+
+/* Área principal */
+.conteudo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px 64px;
+}
+
+/* Cabeçalho da seção */
+.cabecalho-secao {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.cabecalho-secao h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+
+.cabecalho-secao p {
+  font-size: 14px;
+  color: #6a6869;
+}
+
+/* Card do formulário */
+.formulario {
+  width: 100%;
+  max-width: 480px;
+  background-color: #2a2829;
+  border: 1px solid #333133;
+  border-radius: 12px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+/* Grupo de campo: label + controle */
+.campo-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.campo-grupo label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #b0adad;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+/* Select estilizado */
+.campo-grupo select {
+  background-color: #1a1819;
+  border: 1px solid #3a3839;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a6869' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.campo-grupo select:focus {
+  border-color: #02FE02;
+}
+
+.campo-grupo select option {
+  background-color: #1a1819;
+  color: #ffffff;
+}
+
+/* Placeholder simulado no select (primeira opção desabilitada) */
+.campo-grupo select option[value=""] {
+  color: #4a4848;
+}
+
+/* ─── Área de upload de imagem ─────────────────────────────────── */
+
+.area-imagem {
+  border: 1.5px dashed #3a3839;
+  border-radius: 8px;
+  background-color: #1a1819;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.area-imagem:hover {
+  border-color: #02FE02;
+  background-color: #1e1c1d;
+}
+
+/* Quando tem imagem selecionada */
+.area-imagem.tem-imagem {
+  border-style: solid;
+  border-color: #02FE02;
+  padding: 0;
+}
+
+/* Input file escondido */
+.input-arquivo {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ícone da câmera */
+.icone-upload {
+  font-size: 28px;
+  color: #6a6869;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.area-imagem:hover .icone-upload {
+  color: #02FE02;
+}
+
+/* Texto de instrução */
+.texto-upload {
+  font-size: 13px;
+  color: #6a6869;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.texto-upload span {
+  display: block;
+  font-size: 11px;
+  color: #4a4848;
+  margin-top: 2px;
+}
+
+/* Preview da imagem selecionada */
+.preview-imagem {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-height: 220px;
+  display: block;
+  border-radius: 6px;
+}
+
+/* Botão de remover imagem */
+.btn-remover-imagem {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: rgba(33, 31, 32, 0.85);
+  border: 1px solid #3a3839;
+  border-radius: 50%;
+  color: #b0adad;
+  font-size: 14px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  font-family: inherit;
+  z-index: 1;
+}
+
+.btn-remover-imagem:hover {
+  border-color: #fe4444;
+  color: #fe4444;
+}
+
+/* ─── Divisor ──────────────────────────────────────────────────── */
+
+.divisor {
+  height: 1px;
+  background-color: #2e2c2d;
+  margin: 4px 0;
+}
+
+/* ─── Botão de registrar ───────────────────────────────────────── */
+
+.botao-registrar {
+  width: 100%;
+  padding: 13px;
+  background-color: #02FE02;
+  color: #211F20;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.botao-registrar:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.botao-registrar:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.botao-registrar:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ─── Toast de sucesso ─────────────────────────────────────────── */
+
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  background-color: #02FE02;
+  color: #211F20;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  white-space: nowrap;
+  animation: fadeUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  z-index: 100;
+}
+
+/* ─── Responsivo ───────────────────────────────────────────────── */
+
+@media (max-width: 520px) {
+  .formulario {
+    padding: 28px 20px;
+  }
+
+  .topo {
+    padding: 18px 20px;
+  }
+
+  .logo {
+    margin-right: 36px;
+  }
+}

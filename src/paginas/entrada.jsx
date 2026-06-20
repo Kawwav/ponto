@@ -1,24 +1,29 @@
+import { useNavigate } from 'react-router-dom'
 import './entrada.css'
 
 // Lista de opções do menu principal
 const menus = [
-  { id: 'registrar-entrada', label: 'Registrar Entrada', icon: '→' },
-  { id: 'registrar-trabalho', label: 'Registrar Trabalho', icon: '⚙' },
-  { id: 'registrar-quebras', label: 'Registrar Quebras', icon: '⚠' },
-  { id: 'registrar-saida', label: 'Registrar Saída', icon: '←' },
-  { id: 'relatorio', label: 'Relatório', icon: '▤' },
-  { id: 'cadastros', label: 'Cadastros', icon: '✦' },
+  { id: 'registrar-entrada',  label: 'Registrar Entrada',  icon: '→', rota: '/registrar-entrada' },
+  { id: 'registrar-trabalho', label: 'Registrar Trabalho', icon: '⚙', rota: null },
+  { id: 'registrar-quebras',  label: 'Registrar Quebras',  icon: '⚠', rota: null },
+  { id: 'registrar-saida',    label: 'Registrar Saída',    icon: '←', rota: null },
+  { id: 'relatorio',          label: 'Relatório',           icon: '▤', rota: null },
+  { id: 'cadastros',          label: 'Cadastros',           icon: '✦', rota: null },
 ]
 
 function Entrada() {
+  const navigate = useNavigate()
 
-  // Função chamada ao clicar em um card — recebe o id do item
-  function aoClicar(id) {
-    console.log('Acessando:', id)
+  // Navega para a rota do card clicado (se existir)
+  function aoClicar(item) {
+    if (item.rota) {
+      navigate(item.rota)
+    } else {
+      console.log('Em breve:', item.id)
+    }
   }
 
   return (
-    // Página inteira com fundo escuro
     <div className="pagina">
 
       {/* Cabeçalho com a logo centralizada */}
@@ -39,18 +44,14 @@ function Entrada() {
         {/* Grade de cards — 3 colunas no desktop, 2 no tablet, 1 no mobile */}
         <div className="grade">
           {menus.map((item, index) => (
-            // Card individual para cada opção do menu
             <button
               key={item.id}
               type="button"
               className="card"
               style={{ '--i': index }}
-              onClick={() => aoClicar(item.id)}
+              onClick={() => aoClicar(item)}
             >
-              {/* Ícone do card em verde */}
               <span className="icone">{item.icon}</span>
-
-              {/* Nome da opção em branco */}
               <span className="nome">{item.label}</span>
             </button>
           ))}
