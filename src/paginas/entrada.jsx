@@ -9,6 +9,8 @@ const menus = [
   { id: 'registrar-saida',    label: 'Registrar Saída',    icon: '←', rota: '/registrar-saida' },
   { id: 'relatorio',          label: 'Relatório',           icon: '▤', rota: '/relatorio' },
   { id: 'cadastros',          label: 'Cadastros',           icon: '✦', rota: null },
+  // TODO: exibir este card apenas para usuários com perfil de administrador
+  { id: 'painel-adm',         label: 'Painel Admin',        icon: '🛡', rota: '/adm' },
 ]
 
 function Entrada() {

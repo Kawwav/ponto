@@ -1,0 +1,1162 @@
+/* ─── Animações ────────────────────────────────────────────────── */
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardPop {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topo, .cabecalho, .abas, .filtros, .card, .cartao, .resumo, .grafico,
+  .subabas, .painel-cadastro, .form-inline {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .grafico-svg circle {
+    transition: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────── */
+
+.pagina {
+  min-height: 100svh;
+  background-color: #211F20;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, 'Segoe UI', sans-serif;
+}
+
+.topo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 22px 32px;
+  border-bottom: 1px solid #2e2c2d;
+  gap: 16px;
+  animation: fadeDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.btn-voltar {
+  background: none;
+  border: 1px solid #333133;
+  border-radius: 6px;
+  color: #6a6869;
+  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.btn-voltar:hover {
+  border-color: #02FE02;
+  color: #02FE02;
+}
+
+.logo {
+  height: 36px;
+  width: auto;
+  margin: 0 auto;
+  margin-right: 52px;
+}
+
+.conteudo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px 64px;
+}
+
+.cabecalho {
+  text-align: center;
+  margin-bottom: 32px;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.cabecalho h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+
+.cabecalho p {
+  font-size: 14px;
+  color: #6a6869;
+}
+
+/* ─── Abas ─────────────────────────────────────────────────────── */
+
+.abas {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  gap: 4px;
+  background-color: #1a1819;
+  border: 1px solid #333133;
+  border-radius: 9px;
+  padding: 4px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;
+}
+
+.aba {
+  flex: 1;
+  padding: 11px 20px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  color: #6a6869;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.aba:hover:not(.ativa) {
+  color: #b0adad;
+}
+
+.aba.ativa {
+  background-color: #02FE02;
+  color: #211F20;
+}
+
+/* ─── Filtros ──────────────────────────────────────────────────── */
+
+.filtros {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+}
+
+.filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 150px;
+}
+
+.filtro label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6a6869;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.filtro select,
+.filtro input[type="date"] {
+  background-color: #2a2829;
+  border: 1px solid #333133;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 9px 12px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.filtro select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a6869' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+.filtro select:focus,
+.filtro input[type="date"]:focus {
+  border-color: #02FE02;
+}
+
+.filtro select option {
+  background-color: #1a1819;
+  color: #ffffff;
+}
+
+.filtro input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
+  cursor: pointer;
+}
+
+.btn-limpar-filtro {
+  background: none;
+  border: 1px solid #333133;
+  border-radius: 6px;
+  color: #6a6869;
+  font-size: 13px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+  align-self: flex-end;
+}
+
+.btn-limpar-filtro:hover {
+  border-color: #b0adad;
+  color: #b0adad;
+}
+
+/* ─── Aba Relatórios — lista de registros ──────────────────────── */
+
+.lista {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  background-color: #2a2829;
+  border: 1px solid #333133;
+  border-radius: 10px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: cardPop 0.45s cubic-bezier(0.22, 1, 0.36, 1) calc(0.22s + var(--i, 0) * 0.05s) both;
+  position: relative;
+}
+
+.card-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.card-nome {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 3px;
+}
+
+.card-local {
+  font-size: 12px;
+  color: #6a6869;
+}
+
+.card-data {
+  font-size: 12px;
+  color: #6a6869;
+  white-space: nowrap;
+  flex-shrink: 0;
+  background-color: #1a1819;
+  border: 1px solid #333133;
+  border-radius: 20px;
+  padding: 4px 10px;
+}
+
+.pontos {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ponto {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ponto-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #4a4848;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.hora {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+  letter-spacing: 0.5px;
+}
+
+.hora.entrada {
+  color: #02FE02;
+}
+
+.hora.saida {
+  color: #FEA502;
+}
+
+.hora.duracao {
+  color: #ffffff;
+}
+
+.hora.ausente {
+  color: #3a3839;
+  font-size: 16px;
+}
+
+.separador {
+  font-size: 14px;
+  color: #3a3839;
+  flex-shrink: 0;
+  padding-top: 14px;
+}
+
+.status {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.status.completo {
+  background-color: rgba(2, 254, 2, 0.1);
+  color: #02FE02;
+  border: 1px solid rgba(2, 254, 2, 0.2);
+}
+
+.status.aberto {
+  background-color: rgba(254, 165, 2, 0.1);
+  color: #FEA502;
+  border: 1px solid rgba(254, 165, 2, 0.2);
+}
+
+/* ─── Estado vazio ─────────────────────────────────────────────── */
+
+.vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 64px 24px;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.vazio-icone {
+  font-size: 36px;
+  color: #333133;
+  line-height: 1;
+}
+
+.vazio-titulo {
+  font-size: 16px;
+  font-weight: 600;
+  color: #4a4848;
+}
+
+.vazio-sub {
+  font-size: 13px;
+  color: #333133;
+  text-align: center;
+  max-width: 280px;
+  line-height: 1.6;
+}
+
+/* ─── Aba Financeiro — resumo geral ────────────────────────────── */
+
+.resumo {
+  width: 100%;
+  max-width: 880px;
+  background-color: #2a2829;
+  border: 1px solid #333133;
+  border-radius: 12px;
+  padding: 22px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+}
+
+.resumo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.resumo-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6a6869;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.resumo-valor {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+  letter-spacing: 0.4px;
+}
+
+.resumo-valor.destaque {
+  color: #02FE02;
+}
+
+.divisor {
+  width: 1px;
+  align-self: stretch;
+  background-color: #333133;
+}
+
+/* ─── Aba Financeiro — gráfico de pizza ────────────────────────── */
+
+.grafico {
+  width: 100%;
+  max-width: 880px;
+  background-color: #2a2829;
+  border: 1px solid #333133;
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+}
+
+.grafico-titulo {
+  margin-bottom: 24px;
+}
+
+.grafico-titulo h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.1px;
+  margin-bottom: 4px;
+}
+
+.grafico-titulo p {
+  font-size: 12px;
+  color: #6a6869;
+}
+
+.grafico-corpo {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.grafico-svg-caixa {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+.grafico-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.grafico-svg circle {
+  transition: stroke-dasharray 0.4s ease, stroke-dashoffset 0.4s ease;
+}
+
+.grafico-centro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.grafico-centro-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6a6869;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.grafico-centro-valor {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+  letter-spacing: 0.2px;
+}
+
+.legenda {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.legenda-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legenda-cor {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.legenda-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.legenda-nome {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.legenda-detalhe {
+  font-size: 12px;
+  color: #6a6869;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+  letter-spacing: 0.2px;
+}
+
+.aviso {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #4a4848;
+  text-align: center;
+}
+
+/* ─── Aba Financeiro — cards por funcionário ───────────────────── */
+
+.grade {
+  width: 100%;
+  max-width: 880px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.cartao {
+  background-color: #2a2829;
+  border: 1.5px solid #333133;
+  border-radius: 12px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color 0.2s;
+  animation: cardPop 0.45s cubic-bezier(0.22, 1, 0.36, 1) calc(0.26s + var(--i, 0) * 0.05s) both;
+}
+
+.cartao:hover {
+  border-color: #4a4848;
+}
+
+.cartao-topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cartao-nome {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+.cartao-aberto {
+  font-size: 10px;
+  font-weight: 600;
+  color: #FEA502;
+  background-color: rgba(254, 165, 2, 0.1);
+  border: 1px solid rgba(254, 165, 2, 0.2);
+  border-radius: 20px;
+  padding: 3px 8px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.cartao-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6a6869;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.cartao-horas {
+  background-color: #1a1819;
+  border: 1px solid #333133;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.cartao-horas-valor {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+  letter-spacing: 0.3px;
+}
+
+.cartao-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cartao-campo label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6a6869;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.entrada-moeda {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #1a1819;
+  border: 1px solid #3a3839;
+  border-radius: 6px;
+  padding: 0 12px;
+  transition: border-color 0.2s;
+}
+
+.entrada-moeda:focus-within {
+  border-color: #02FE02;
+}
+
+.entrada-moeda span {
+  font-size: 13px;
+  color: #6a6869;
+  font-weight: 600;
+}
+
+.entrada-moeda input {
+  flex: 1;
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: inherit;
+  padding: 10px 0;
+  min-width: 0;
+}
+
+.entrada-moeda input::-webkit-outer-spin-button,
+.entrada-moeda input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.entrada-moeda input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.cartao-total {
+  border: 1.5px solid #02FE02;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background-color: rgba(2, 254, 2, 0.06);
+}
+
+.cartao-total-valor {
+  font-size: 20px;
+  font-weight: 700;
+  color: #02FE02;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+  letter-spacing: 0.3px;
+}
+
+/* ─── Aba Cadastros — sub-abas ─────────────────────────────────── */
+
+.subabas {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid #2e2c2d;
+  margin-bottom: 28px;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+}
+
+.subaba {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #6a6869;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 0 2px 12px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.subaba:hover:not(.ativa) {
+  color: #b0adad;
+}
+
+.subaba.ativa {
+  color: #02FE02;
+  border-bottom-color: #02FE02;
+}
+
+/* ─── Aba Cadastros — painel ────────────────────────────────────── */
+
+.painel-cadastro {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+}
+
+.painel-cadastro-topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.painel-cadastro-topo h2 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.1px;
+  margin-bottom: 4px;
+}
+
+.painel-cadastro-topo p {
+  font-size: 13px;
+  color: #6a6869;
+  max-width: 460px;
+  line-height: 1.5;
+}
+
+.btn-novo {
+  background-color: #02FE02;
+  color: #211F20;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.btn-novo:hover {
+  opacity: 0.88;
+}
+
+.btn-add-loja {
+  align-self: flex-start;
+  background: none;
+  border: 1px dashed #3a3839;
+  border-radius: 6px;
+  color: #6a6869;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-add-loja:hover {
+  border-color: #02FE02;
+  color: #02FE02;
+}
+
+/* ─── Formulário inline (criar/editar) ─────────────────────────── */
+
+.form-inline {
+  background-color: #1a1819;
+  border: 1px solid #333133;
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.form-inline-loja {
+  margin: 4px 0 12px;
+}
+
+.form-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.form-campo-curto {
+  flex: 0 0 160px;
+  min-width: 140px;
+}
+
+.form-campo label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6a6869;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-campo input[type="text"],
+.form-campo input[type="number"] {
+  background-color: #2a2829;
+  border: 1px solid #3a3839;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  width: 100%;
+}
+
+.form-campo input:focus {
+  border-color: #02FE02;
+}
+
+.form-campo .entrada-moeda {
+  background-color: #2a2829;
+}
+
+.form-acoes {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-cancelar {
+  background: none;
+  border: 1px solid #333133;
+  border-radius: 6px;
+  color: #6a6869;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-cancelar:hover {
+  border-color: #b0adad;
+  color: #b0adad;
+}
+
+.btn-salvar {
+  background-color: #02FE02;
+  color: #211F20;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-salvar:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.btn-salvar:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ─── Tabela de cadastro (lista de empregados / lojas) ─────────── */
+
+.tabela-cadastro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.linha-cadastro {
+  background-color: #2a2829;
+  border: 1px solid #333133;
+  border-radius: 8px;
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.linha-cadastro.inativo {
+  opacity: 0.5;
+}
+
+.linha-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.linha-nome {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.linha-detalhe {
+  font-size: 12px;
+  color: #6a6869;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+}
+
+.tag-arquivado {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6a6869;
+  background-color: #1a1819;
+  border: 1px solid #333133;
+  border-radius: 20px;
+  padding: 3px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.linha-acoes {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.btn-icone {
+  background: none;
+  border: 1px solid #333133;
+  border-radius: 6px;
+  color: #6a6869;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  font-family: inherit;
+}
+
+.btn-icone:hover {
+  border-color: #b0adad;
+  color: #b0adad;
+}
+
+.btn-icone.arquivar:hover {
+  border-color: #fe4444;
+  color: #fe4444;
+}
+
+.btn-icone.reativar:hover {
+  border-color: #02FE02;
+  color: #02FE02;
+}
+
+/* ─── Blocos de mercado (estrutura) ─────────────────────────────── */
+
+.lista-mercados {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bloco-mercado {
+  background-color: #1a1819;
+  border: 1px solid #333133;
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bloco-mercado-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bloco-mercado-nome {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.bloco-mercado-vazio {
+  font-size: 12px;
+  color: #4a4848;
+  padding: 4px 2px;
+}
+
+.tabela-lojas .linha-cadastro {
+  background-color: #2a2829;
+}
+
+/* ─── Responsivo ───────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .topo {
+    padding: 18px 20px;
+  }
+
+  .logo {
+    margin-right: 36px;
+  }
+
+  .filtros {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filtro {
+    min-width: 100%;
+  }
+
+  .btn-limpar-filtro {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .resumo {
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px;
+  }
+
+  .divisor {
+    width: 100%;
+    height: 1px;
+  }
+
+  .grafico {
+    padding: 24px 20px;
+  }
+
+  .grafico-corpo {
+    flex-direction: column;
+  }
+
+  .legenda {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .grade {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 16px 18px;
+  }
+
+  .hora {
+    font-size: 17px;
+  }
+
+  .painel-cadastro-topo {
+    flex-direction: column;
+  }
+
+  .btn-novo {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-campo,
+  .form-campo-curto {
+    min-width: 100%;
+  }
+
+  .form-acoes {
+    justify-content: stretch;
+  }
+
+  .form-acoes button {
+    flex: 1;
+  }
+
+  .linha-cadastro {
+    flex-wrap: wrap;
+  }
+}

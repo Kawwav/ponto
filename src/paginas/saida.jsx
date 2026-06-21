@@ -1,37 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './saida.css'
-
-// ─── Dados de exemplo ──────────────────────────────────────────────
-// TODO: substituir pelos dados reais vindos do backend/API
-
-const mercados = [
-  { id: 'mercado-a', label: 'Mercado A' },
-  { id: 'mercado-b', label: 'Mercado B' },
-  { id: 'mercado-c', label: 'Mercado C' },
-]
-
-const lojasPorMercado = {
-  'mercado-a': [
-    { id: 'loja-a1', label: 'Loja A1 — Centro' },
-    { id: 'loja-a2', label: 'Loja A2 — Norte' },
-  ],
-  'mercado-b': [
-    { id: 'loja-b1', label: 'Loja B1 — Sul' },
-    { id: 'loja-b2', label: 'Loja B2 — Leste' },
-    { id: 'loja-b3', label: 'Loja B3 — Oeste' },
-  ],
-  'mercado-c': [
-    { id: 'loja-c1', label: 'Loja C1 — Centro' },
-  ],
-}
-
-const empregados = [
-  { id: 'emp-1', label: 'Leonardo Silva' },
-  { id: 'emp-2', label: 'Maria Oliveira' },
-  { id: 'emp-3', label: 'Carlos Santos' },
-  { id: 'emp-4', label: 'Ana Costa' },
-]
+import { listarEmpregados, listarMercados, listarLojas } from './dados'
 
 // ─── Componente Relógio com horas trabalhadas ──────────────────────
 
@@ -109,7 +79,17 @@ function RegistrarSaida() {
   const [horaRegistro, setHoraRegistro]   = useState(null)
   const [horasTrabalhadas, setHorasTrabalhadas] = useState(null)
 
-  const lojas = mercado ? (lojasPorMercado[mercado] ?? []) : []
+  const [empregados, setEmpregados] = useState([])
+  const [mercados, setMercados]     = useState([])
+  const [todasLojas, setTodasLojas] = useState([])
+
+  useEffect(() => {
+    setEmpregados(listarEmpregados())
+    setMercados(listarMercados())
+    setTodasLojas(listarLojas())
+  }, [])
+
+  const lojas = mercado ? todasLojas.filter((l) => l.mercadoId === mercado) : []
   const formularioValido = mercado && loja && empregado
 
   function aoMudarMercado(e) {
@@ -167,11 +147,11 @@ function RegistrarSaida() {
       registros.push({
         id: crypto.randomUUID(),
         empregadoId: empregado,
-        empregado:   empObj?.label  ?? empregado,
+        empregado:   empObj?.nome  ?? empregado,
         mercadoId:   mercado,
-        mercado:     mercObj?.label ?? mercado,
+        mercado:     mercObj?.nome ?? mercado,
         lojaId:      loja,
-        loja:        lojaObj?.label ?? loja,
+        loja:        lojaObj?.nome ?? loja,
         entrada:     null,
         saida:       agora.toISOString(),
         duracao:     null,
@@ -219,7 +199,7 @@ function RegistrarSaida() {
             <select id="mercado" value={mercado} onChange={aoMudarMercado}>
               <option value="" disabled>Selecione o mercado</option>
               {mercados.map((m) => (
-                <option key={m.id} value={m.id}>{m.label}</option>
+                <option key={m.id} value={m.id}>{m.nome}</option>
               ))}
             </select>
           </div>
@@ -237,7 +217,7 @@ function RegistrarSaida() {
                 {mercado ? 'Selecione a loja' : 'Selecione um mercado primeiro'}
               </option>
               {lojas.map((l) => (
-                <option key={l.id} value={l.id}>{l.label}</option>
+                <option key={l.id} value={l.id}>{l.nome}</option>
               ))}
             </select>
           </div>
@@ -251,7 +231,7 @@ function RegistrarSaida() {
             >
               <option value="" disabled>Selecione o funcionário</option>
               {empregados.map((emp) => (
-                <option key={emp.id} value={emp.id}>{emp.label}</option>
+                <option key={emp.id} value={emp.id}>{emp.nome}</option>
               ))}
             </select>
           </div>

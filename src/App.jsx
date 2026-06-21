@@ -4,6 +4,7 @@ import Entrada from './paginas/entrada'
 import RegistrarEntrada from './paginas/registrarentrada'
 import RegistrarSaida from './paginas/saida'
 import Relatorio from './paginas/relatorio'
+import Adm from './paginas/adm'
 
 //git add .
 
@@ -25,6 +26,7 @@ function App() {
       <Route path="/registrar-entrada"  element={<RegistrarEntrada />} />
       <Route path="/registrar-saida"    element={<RegistrarSaida />} />
       <Route path="/relatorio"          element={<Relatorio />} />
+      <Route path="/adm"                element={<Adm />} />
     </Routes>
   )
 }
