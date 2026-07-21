@@ -1,5 +1,3 @@
-/* ─── Animações ────────────────────────────────────────────────── */
-
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-12px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -27,7 +25,6 @@
   }
 }
 
-/* ─────────────────────────────────────────────────────────────── */
 
 .pagina {
   min-height: 100svh;
@@ -103,8 +100,6 @@
   color: #6a6869;
 }
 
-/* ─── Abas ─────────────────────────────────────────────────────── */
-
 .abas {
   width: 100%;
   max-width: 880px;
@@ -142,7 +137,26 @@
   color: #211F20;
 }
 
-/* ─── Filtros ──────────────────────────────────────────────────── */
+.aba-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  margin-left: 6px;
+  background-color: #FEA502;
+  color: #211F20;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.aba.ativa .aba-badge {
+  background-color: #211F20;
+  color: #02FE02;
+}
+
 
 .filtros {
   width: 100%;
@@ -228,7 +242,7 @@
   color: #b0adad;
 }
 
-/* ─── Aba Relatórios — lista de registros ──────────────────────── */
+/*relatorios*/
 
 .lista {
   width: 100%;
@@ -248,6 +262,13 @@
   gap: 14px;
   animation: cardPop 0.45s cubic-bezier(0.22, 1, 0.36, 1) calc(0.22s + var(--i, 0) * 0.05s) both;
   position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: #3a3839;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
 }
 
 .card-topo {
@@ -354,8 +375,6 @@
   border: 1px solid rgba(254, 165, 2, 0.2);
 }
 
-/* ─── Estado vazio ─────────────────────────────────────────────── */
-
 .vazio {
   display: flex;
   flex-direction: column;
@@ -384,8 +403,6 @@
   max-width: 280px;
   line-height: 1.6;
 }
-
-/* ─── Aba Financeiro — resumo geral ────────────────────────────── */
 
 .resumo {
   width: 100%;
@@ -434,8 +451,6 @@
   align-self: stretch;
   background-color: #333133;
 }
-
-/* ─── Aba Financeiro — gráfico de pizza ────────────────────────── */
 
 .grafico {
   width: 100%;
@@ -568,8 +583,6 @@
   color: #4a4848;
   text-align: center;
 }
-
-/* ─── Aba Financeiro — cards por funcionário ───────────────────── */
 
 .grade {
   width: 100%;
@@ -721,8 +734,6 @@
   letter-spacing: 0.3px;
 }
 
-/* ─── Aba Cadastros — sub-abas ─────────────────────────────────── */
-
 .subabas {
   width: 100%;
   max-width: 880px;
@@ -754,8 +765,6 @@
   color: #02FE02;
   border-bottom-color: #02FE02;
 }
-
-/* ─── Aba Cadastros — painel ────────────────────────────────────── */
 
 .painel-cadastro {
   width: 100%;
@@ -800,12 +809,14 @@
   font-family: inherit;
   cursor: pointer;
   letter-spacing: 0.2px;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
 }
 
 .btn-novo:hover {
-  opacity: 0.88;
+  opacity: 0.92;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(2, 254, 2, 0.22);
 }
 
 .btn-add-loja {
@@ -827,7 +838,6 @@
   color: #02FE02;
 }
 
-/* ─── Formulário inline (criar/editar) ─────────────────────────── */
 
 .form-inline {
   background-color: #1a1819;
@@ -922,11 +932,13 @@
   font-family: inherit;
   padding: 10px 18px;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-salvar:hover:not(:disabled) {
-  opacity: 0.88;
+  opacity: 0.92;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(2, 254, 2, 0.22);
 }
 
 .btn-salvar:disabled {
@@ -934,7 +946,157 @@
   cursor: not-allowed;
 }
 
-/* ─── Tabela de cadastro (lista de empregados / lojas) ─────────── */
+
+/* ─── Ajustes ──────────────────────────────────────────────────── */
+
+.lista-ajustes {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.card-ajuste {
+  background-color: #2a2829;
+  border: 1px solid #333133;
+  border-radius: 10px;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card-ajuste-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.card-ajuste-nome {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 3px;
+}
+
+.card-ajuste-campo {
+  font-size: 12px;
+  color: #6a6869;
+}
+
+.badge-status-ajuste {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge-status-ajuste.pendente {
+  background-color: rgba(254, 165, 2, 0.1);
+  color: #FEA502;
+  border: 1px solid rgba(254, 165, 2, 0.2);
+}
+
+.badge-status-ajuste.aprovado {
+  background-color: rgba(2, 254, 2, 0.1);
+  color: #02FE02;
+  border: 1px solid rgba(2, 254, 2, 0.2);
+}
+
+.badge-status-ajuste.rejeitado {
+  background-color: rgba(254, 68, 68, 0.1);
+  color: #fe4444;
+  border: 1px solid rgba(254, 68, 68, 0.2);
+}
+
+.card-ajuste-valores {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.valor-ajuste {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.valor-ajuste-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #4a4848;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.valor-ajuste-hora {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+}
+
+.valor-ajuste-hora.destaque {
+  color: #02FE02;
+}
+
+.card-ajuste-motivo {
+  font-size: 13px;
+  color: #b0adad;
+  background-color: #1a1819;
+  border: 1px solid #333133;
+  border-radius: 8px;
+  padding: 10px 14px;
+  line-height: 1.5;
+}
+
+.card-ajuste-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn-rejeitar {
+  background: none;
+  border: 1px solid #333133;
+  border-radius: 6px;
+  color: #fe4444;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+
+.btn-rejeitar:hover {
+  border-color: #fe4444;
+  opacity: 0.85;
+}
+
+.btn-aprovar {
+  background-color: #02FE02;
+  color: #211F20;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-aprovar:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+}
 
 .tabela-cadastro {
   display: flex;
@@ -950,7 +1112,12 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  transition: opacity 0.2s, border-color 0.2s;
+  transition: opacity 0.2s, border-color 0.2s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.linha-cadastro:hover {
+  border-color: #3a3839;
+  transform: translateX(3px);
 }
 
 .linha-cadastro.inativo {
@@ -1027,7 +1194,6 @@
   color: #02FE02;
 }
 
-/* ─── Blocos de mercado (estrutura) ─────────────────────────────── */
 
 .lista-mercados {
   display: flex;
@@ -1068,7 +1234,6 @@
   background-color: #2a2829;
 }
 
-/* ─── Responsivo ───────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
   .topo {
@@ -1146,6 +1311,7 @@
   .form-campo,
   .form-campo-curto {
     min-width: 100%;
+    flex: 1 1 100%;
   }
 
   .form-acoes {
@@ -1159,4 +1325,154 @@
   .linha-cadastro {
     flex-wrap: wrap;
   }
+
+  /* Abas rolam horizontalmente em vez de espremer o texto */
+  .abas {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .abas::-webkit-scrollbar {
+    display: none;
+  }
+
+  .aba {
+    flex: 0 0 auto;
+    padding: 10px 16px;
+    white-space: nowrap;
+  }
+
+  .cabecalho {
+    margin-bottom: 24px;
+  }
+
+  .card-topo,
+  .cartao-topo,
+  .card-ajuste-topo,
+  .bloco-mercado-topo {
+    flex-wrap: wrap;
+  }
+
+  .card-data {
+    align-self: flex-start;
+  }
+
+  .card-ajuste-valores {
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+
+  /* Botões de aprovar/rejeitar empilhados e com toque maior */
+  .card-ajuste-acoes {
+    flex-direction: column-reverse;
+  }
+
+  .card-ajuste-acoes button {
+    width: 100%;
+    padding: 11px 16px;
+  }
+
+  .grafico-titulo p {
+    max-width: none;
+  }
+
+  .subabas {
+    gap: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .subabas::-webkit-scrollbar {
+    display: none;
+  }
+
+  .subaba {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+/* Telas bem estreitas (celulares pequenos) */
+@media (max-width: 400px) {
+  .conteudo {
+    padding: 36px 16px 48px;
+  }
+
+  .cabecalho h1 {
+    font-size: 20px;
+  }
+
+  .aba {
+    padding: 9px 13px;
+    font-size: 13px;
+  }
+
+  .card,
+  .cartao,
+  .card-ajuste,
+  .bloco-mercado {
+    padding: 14px 16px;
+  }
+
+  .resumo {
+    padding: 16px;
+  }
+
+  .resumo-valor {
+    font-size: 19px;
+  }
+
+  .grafico {
+    padding: 18px 16px;
+  }
+
+  .grafico-svg-caixa {
+    width: 150px;
+    height: 150px;
+  }
+
+  .valor-ajuste-hora {
+    font-size: 15px;
+  }
+
+  .cartao-total-valor {
+    font-size: 17px;
+  }
+
+  .form-inline {
+    padding: 14px 16px;
+  }
+
+  .linha-cadastro {
+    padding: 11px 13px;
+  }
+
+  .btn-icone {
+    width: 30px;
+    height: 30px;
+  }
+}
+/* Marca d\x27agua da logo, centralizada e apagada, atrás de todo o conteúdo */
+.pagina {
+  position: relative;
+}
+
+.pagina::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(75vw, 680px);
+  height: min(75vw, 680px);
+  transform: translate(-50%, -50%);
+  background-image: url("/Logo2.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: grayscale(1);
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 0;
 }

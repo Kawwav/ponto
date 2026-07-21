@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './saida.css'
-import { listarEmpregados, listarMercados, listarLojas } from './dados'
+import { listarEmpregados, listarMercados, listarLojas, minutosPausas, temPausaAberta } from './dados'
 
 // ─── Componente Relógio com horas trabalhadas ──────────────────────
 
-function RelogioSaida({ horaRegistro, horasTrabalhadas }) {
+function RelogioSaida({ horaRegistro, horasTrabalhadas, intervaloDuracao }) {
   const [agora, setAgora] = useState(new Date())
   const intervalo = useRef(null)
 
@@ -44,6 +44,7 @@ function RelogioSaida({ horaRegistro, horasTrabalhadas }) {
         <div className="horas-trabalhadas">
           <span className="horas-label">Horas trabalhadas</span>
           <span className="horas-valor">{horasTrabalhadas}</span>
+          {intervaloDuracao && <span className="horas-intervalo">Intervalo descontado: {intervaloDuracao}</span>}
         </div>
       )}
     </div>
@@ -52,11 +53,11 @@ function RelogioSaida({ horaRegistro, horasTrabalhadas }) {
 
 // ─── Calcula diferença entre dois Date e retorna string "Xh Ym" ───
 
-function calcularHorasTrabalhadas(entrada, saida) {
+function calcularHorasTrabalhadas(entrada, saida, pausaMinutos = 0) {
   const diffMs = saida - entrada
   if (diffMs <= 0) return null
 
-  const totalMinutos = Math.floor(diffMs / 60000)
+  const totalMinutos = Math.max(0, Math.floor(diffMs / 60000) - pausaMinutos)
   const horas = Math.floor(totalMinutos / 60)
   const minutos = totalMinutos % 60
 
@@ -78,6 +79,7 @@ function RegistrarSaida() {
   const [sucesso, setSucesso]             = useState(false)
   const [horaRegistro, setHoraRegistro]   = useState(null)
   const [horasTrabalhadas, setHorasTrabalhadas] = useState(null)
+  const [intervaloDuracao, setIntervaloDuracao] = useState(null)
 
   const [empregados, setEmpregados] = useState([])
   const [mercados, setMercados]     = useState([])
@@ -130,11 +132,26 @@ function RegistrarSaida() {
       : null
 
     let duracao = null
+    let pausaFormatada = null
     if (entradaReal) {
-      duracao = calcularHorasTrabalhadas(new Date(entradaReal.entrada), agora)
+      // Se o funcionário esqueceu de voltar do intervalo, encerra a pausa junto com a saída
+      let pausasFinal = entradaReal.pausas || []
+      if (temPausaAberta(entradaReal)) {
+        pausasFinal = pausasFinal.map((p) => (p.fim ? p : { ...p, fim: agora.toISOString() }))
+      }
+
+      const registroComPausas = { ...entradaReal, pausas: pausasFinal }
+      const pausaMinutos = minutosPausas(registroComPausas)
+      duracao = calcularHorasTrabalhadas(new Date(entradaReal.entrada), agora, pausaMinutos)
+      if (pausaMinutos > 0) {
+        const h = Math.floor(pausaMinutos / 60)
+        const m = pausaMinutos % 60
+        pausaFormatada = h === 0 ? `${m}min` : m === 0 ? `${h}h` : `${h}h ${m}min`
+      }
+
       // Atualiza o registro existente com a saída
       registros[registros.length - 1 - entradaIndex] = {
-        ...entradaReal,
+        ...registroComPausas,
         saida: agora.toISOString(),
         duracao,
       }
@@ -160,12 +177,14 @@ function RegistrarSaida() {
 
     localStorage.setItem('registros_ponto', JSON.stringify(registros))
     setHorasTrabalhadas(duracao)
+    setIntervaloDuracao(pausaFormatada)
     setSucesso(true)
 
     setTimeout(() => {
       setSucesso(false)
       setHoraRegistro(null)
       setHorasTrabalhadas(null)
+      setIntervaloDuracao(null)
       navigate('/entrada')
     }, 4000)
   }
@@ -290,7 +309,11 @@ function RegistrarSaida() {
           <div className="modal-sucesso">
             <div className="modal-icone saida">←</div>
             <p className="modal-titulo">Saída registrada!</p>
-            <RelogioSaida horaRegistro={horaRegistro} horasTrabalhadas={horasTrabalhadas} />
+            <RelogioSaida
+              horaRegistro={horaRegistro}
+              horasTrabalhadas={horasTrabalhadas}
+              intervaloDuracao={intervaloDuracao}
+            />
           </div>
         </div>
       )}

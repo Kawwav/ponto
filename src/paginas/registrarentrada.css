@@ -15,14 +15,33 @@
   to   { opacity: 1; transform: scale(1); }
 }
 
-@keyframes piscar {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+@keyframes backdropIn {
+  from {
+    background-color: rgba(33, 31, 32, 0);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
+  to {
+    background-color: rgba(33, 31, 32, 0.88);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+}
+
+@keyframes panelUp {
+  from { transform: translateY(60px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes checkPop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  60%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .topo, .formulario, .campo-grupo, .botao-registrar,
-  .overlay-sucesso, .modal-sucesso {
+  .overlay-sucesso, .modal-sucesso, .modal-icone {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -295,15 +314,18 @@
   border-radius: 6px;
   cursor: pointer;
   letter-spacing: 0.3px;
-  transition: opacity 0.2s, transform 0.1s;
+  transition: opacity 0.2s, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .botao-registrar:hover:not(:disabled) {
-  opacity: 0.88;
+  opacity: 0.92;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(2, 254, 2, 0.25);
 }
 
 .botao-registrar:active:not(:disabled) {
-  transform: scale(0.99);
+  transform: scale(0.99) translateY(0);
+  box-shadow: none;
 }
 
 .botao-registrar:disabled {
@@ -322,7 +344,7 @@
   align-items: center;
   justify-content: center;
   z-index: 200;
-  animation: fadeUp 0.25s ease both;
+  animation: backdropIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
@@ -337,7 +359,7 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  animation: popIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: panelUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
   min-width: 260px;
 }
 
@@ -354,6 +376,7 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  animation: checkPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s both;
 }
 
 /* Título do modal */

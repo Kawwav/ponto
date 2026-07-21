@@ -12,9 +12,10 @@ import {
   listarLojas,
   salvarLoja,
   removerLoja,
+  listarSolicitacoes,
+  responderSolicitacaoAjuste,
 } from './dados'
 
-// ─── Helpers ───────────────────────────────────────────────────────
 
 function dataReferencia(r) {
   return r.entrada || r.saida || null
@@ -57,14 +58,14 @@ function formatarMoeda(valor) {
   return (valor || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 }
 
-// ─── Gráfico de pizza ──────────────────────────────────────────────
+// pizza
 
 const RAIO_GRAFICO           = 70
 const CIRCUNFERENCIA_GRAFICO = 2 * Math.PI * RAIO_GRAFICO
 
 const CORES_GRAFICO = ['#02FE02', '#FEA502', '#02D7FE', '#FE5C9E', '#B26EFF', '#FFD60A']
 
-// ──────────────────────────────────────────────────────────────────
+
 
 function Adm() {
   const navigate = useNavigate()
@@ -72,10 +73,10 @@ function Adm() {
   const [abaAtiva, setAbaAtiva] = useState('relatorios')
   const [registros, setRegistros] = useState([])
 
-  // Dados mestres — vêm do localStorage via dados.js
   const [empregados, setEmpregados] = useState([])
   const [mercados, setMercados]     = useState([])
   const [lojas, setLojas]           = useState([])
+  const [solicitacoes, setSolicitacoes] = useState([])
 
   const [filtroFuncionario, setFiltroFuncionario] = useState('')
   const [filtroMercado, setFiltroMercado]         = useState('')
@@ -89,11 +90,26 @@ function Adm() {
     setLojas(listarLojas())
   }
 
-  useEffect(() => {
+  function recarregarRegistros() {
     const todos = JSON.parse(localStorage.getItem('registros_ponto') || '[]')
     setRegistros(todos)
+  }
+
+  function recarregarSolicitacoes() {
+    setSolicitacoes(listarSolicitacoes())
+  }
+
+  useEffect(() => {
+    recarregarRegistros()
     recarregarDadosMestres()
+    recarregarSolicitacoes()
   }, [])
+
+  function responder(id, aprovado) {
+    responderSolicitacaoAjuste(id, aprovado)
+    recarregarSolicitacoes()
+    recarregarRegistros()
+  }
 
   function aoMudarMercadoFiltro(e) {
     setFiltroMercado(e.target.value)
@@ -113,6 +129,8 @@ function Adm() {
     setFiltroDataInicio('')
     setFiltroDataFim('')
   }
+
+  const solicitacoesPendentes = solicitacoes.filter((s) => s.status === 'pendente')
 
   const empregadosAtivos = empregados.filter((e) => e.ativo !== false)
   const lojasDisponiveis = filtroMercado ? lojas.filter((l) => l.mercadoId === filtroMercado) : []
@@ -167,7 +185,7 @@ function Adm() {
     })
   })()
 
-  // ─── Aba Cadastros ─────────────────────────────────────────────
+  // cadastro
 
   const [subAbaCadastro, setSubAbaCadastro] = useState('empregados') // 'empregados' | 'estrutura'
 
@@ -319,6 +337,8 @@ function Adm() {
               ? `${registrosOrdenados.length} registro${registrosOrdenados.length !== 1 ? 's' : ''} encontrado${registrosOrdenados.length !== 1 ? 's' : ''}`
               : abaAtiva === 'financeiro'
               ? 'Resumo de horas e valores a pagar por funcionário'
+              : abaAtiva === 'ajustes'
+              ? `${solicitacoesPendentes.length} solicitação${solicitacoesPendentes.length !== 1 ? 'ões' : ''} pendente${solicitacoesPendentes.length !== 1 ? 's' : ''}`
               : 'Gerencie funcionários, mercados e lojas'}
           </p>
         </div>
@@ -341,6 +361,16 @@ function Adm() {
           </button>
           <button
             type="button"
+            className={`aba${abaAtiva === 'ajustes' ? ' ativa' : ''}`}
+            onClick={() => setAbaAtiva('ajustes')}
+          >
+            Ajustes
+            {solicitacoesPendentes.length > 0 && (
+              <span className="aba-badge">{solicitacoesPendentes.length}</span>
+            )}
+          </button>
+          <button
+            type="button"
             className={`aba${abaAtiva === 'cadastros' ? ' ativa' : ''}`}
             onClick={() => setAbaAtiva('cadastros')}
           >
@@ -348,8 +378,7 @@ function Adm() {
           </button>
         </div>
 
-        {/* Filtros — só fazem sentido nas abas Relatórios e Financeiro */}
-        {abaAtiva !== 'cadastros' && (
+        {abaAtiva !== 'cadastros' && abaAtiva !== 'ajustes' && (
         <div className="filtros">
 
           <div className="filtro">
@@ -615,6 +644,64 @@ function Adm() {
           )
         )}
 
+        {/* ─── Aba Ajustes ─────────────────────────────────────── */}
+        {abaAtiva === 'ajustes' && (
+          solicitacoes.length === 0 ? (
+            <div className="vazio">
+              <span className="vazio-icone">✎</span>
+              <p className="vazio-titulo">Nenhuma solicitação de ajuste</p>
+              <p className="vazio-sub">
+                Pedidos de correção de ponto enviados pelos funcionários aparecerão aqui.
+              </p>
+            </div>
+          ) : (
+            <div className="lista-ajustes">
+              {[...solicitacoes].reverse().map((s) => (
+                <div key={s.id} className="card-ajuste">
+
+                  <div className="card-ajuste-topo">
+                    <div>
+                      <p className="card-ajuste-nome">{s.empregado}</p>
+                      <p className="card-ajuste-campo">
+                        Ajuste de {s.campo === 'entrada' ? 'entrada' : 'saída'}
+                      </p>
+                    </div>
+                    <span className={`badge-status-ajuste ${s.status}`}>
+                      {s.status === 'pendente' ? 'Pendente' : s.status === 'aprovado' ? 'Aprovado' : 'Rejeitado'}
+                    </span>
+                  </div>
+
+                  <div className="card-ajuste-valores">
+                    <div className="valor-ajuste">
+                      <span className="valor-ajuste-label">Atual</span>
+                      <span className="valor-ajuste-hora">{formatarHora(s.valorAtual)}</span>
+                    </div>
+                    <div className="separador">→</div>
+                    <div className="valor-ajuste">
+                      <span className="valor-ajuste-label">Solicitado</span>
+                      <span className="valor-ajuste-hora destaque">{formatarHora(s.valorSolicitado)}</span>
+                    </div>
+                  </div>
+
+                  {s.motivo && <p className="card-ajuste-motivo">{s.motivo}</p>}
+
+                  {s.status === 'pendente' && (
+                    <div className="card-ajuste-acoes">
+                      <button type="button" className="btn-rejeitar" onClick={() => responder(s.id, false)}>
+                        Rejeitar
+                      </button>
+                      <button type="button" className="btn-aprovar" onClick={() => responder(s.id, true)}>
+                        Aprovar
+                      </button>
+                    </div>
+                  )}
+
+                </div>
+              ))}
+            </div>
+          )
+        )}
+
         {/* ─── Aba Cadastros ──────────────────────────────────── */}
         {abaAtiva === 'cadastros' && (
           <>
@@ -730,7 +817,6 @@ function Adm() {
               </div>
             )}
 
-            {/* ─── Gestão de Estrutura (Mercados & Lojas) ────────── */}
             {subAbaCadastro === 'estrutura' && (
               <div className="painel-cadastro">
 

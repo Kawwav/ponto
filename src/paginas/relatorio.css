@@ -16,7 +16,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .topo, .cabecalho-secao, .filtros, .card-registro {
+  .topo, .cabecalho-secao, .filtros, .card-registro, .banco-horas {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -97,6 +97,190 @@
 .cabecalho-secao p {
   font-size: 14px;
   color: #6a6869;
+}
+
+/* ─── Banco de horas ───────────────────────────────────────────── */
+
+.banco-horas {
+  width: 100%;
+  max-width: 680px;
+  background-color: #2a2829;
+  border: 1px solid #333133;
+  border-radius: 10px;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;
+}
+
+.banco-horas-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.banco-horas-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #b0adad;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.banco-horas-sub {
+  font-size: 12px;
+  color: #6a6869;
+}
+
+.banco-horas-valor {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.banco-horas-valor.positivo {
+  color: #02FE02;
+}
+
+.banco-horas-valor.negativo {
+  color: #FEA502;
+}
+
+/* ─── Solicitação de ajuste de ponto ───────────────────────────── */
+
+.btn-solicitar-ajuste {
+  align-self: flex-start;
+  background: none;
+  border: 1px dashed #3a3839;
+  border-radius: 6px;
+  color: #6a6869;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 7px 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-solicitar-ajuste:hover {
+  border-color: #02FE02;
+  color: #02FE02;
+}
+
+.badge-ajuste-pendente {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 600;
+  color: #FEA502;
+  background-color: rgba(254, 165, 2, 0.1);
+  border: 1px solid rgba(254, 165, 2, 0.25);
+  border-radius: 20px;
+  padding: 4px 10px;
+}
+
+.form-ajuste {
+  background-color: #1a1819;
+  border: 1px solid #333133;
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-ajuste-linha {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.form-ajuste-linha select,
+.form-ajuste-linha input[type="datetime-local"] {
+  background-color: #2a2829;
+  border: 1px solid #3a3839;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 8px 10px;
+  outline: none;
+  font-family: inherit;
+  flex: 1;
+  min-width: 160px;
+}
+
+.form-ajuste-linha select:focus,
+.form-ajuste-linha input[type="datetime-local"]:focus {
+  border-color: #02FE02;
+}
+
+.form-ajuste-motivo {
+  background-color: #2a2829;
+  border: 1px solid #3a3839;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 8px 10px;
+  outline: none;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 44px;
+}
+
+.form-ajuste-motivo:focus {
+  border-color: #02FE02;
+}
+
+.form-ajuste-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn-cancelar-ajuste {
+  background: none;
+  border: 1px solid #333133;
+  border-radius: 6px;
+  color: #6a6869;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-cancelar-ajuste:hover {
+  border-color: #b0adad;
+  color: #b0adad;
+}
+
+.btn-enviar-ajuste {
+  background-color: #02FE02;
+  color: #211F20;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-enviar-ajuste:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.btn-enviar-ajuste:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
 
 /* ─── Filtros ──────────────────────────────────────────────────── */
@@ -207,6 +391,13 @@
   gap: 14px;
   animation: cardPop 0.45s cubic-bezier(0.22, 1, 0.36, 1) calc(0.22s + var(--i, 0) * 0.05s) both;
   position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
+}
+
+.card-registro:hover {
+  transform: translateY(-3px);
+  border-color: #3a3839;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
 }
 
 /* Cabeçalho do card */
@@ -379,6 +570,151 @@
   letter-spacing: 0.5px;
 }
 
+/* ─── Histórico de solicitações de ajuste ──────────────────────── */
+
+.historico-ajustes {
+  width: 100%;
+  max-width: 680px;
+  margin-top: 8px;
+}
+
+.historico-toggle {
+  width: 100%;
+  background-color: #2a2829;
+  border: 1px solid #333133;
+  border-radius: 10px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #b0adad;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.historico-toggle:hover {
+  border-color: #02FE02;
+  color: #ffffff;
+}
+
+.historico-seta {
+  font-size: 10px;
+  color: #6a6869;
+}
+
+.lista-historico {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+  animation: fadeUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.card-hist-ajuste {
+  background-color: #2a2829;
+  border: 1px solid #333133;
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-hist-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.card-hist-campo {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.badge-status-ajuste {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge-status-ajuste.pendente {
+  background-color: rgba(254, 165, 2, 0.1);
+  color: #FEA502;
+  border: 1px solid rgba(254, 165, 2, 0.2);
+}
+
+.badge-status-ajuste.aprovado {
+  background-color: rgba(2, 254, 2, 0.1);
+  color: #02FE02;
+  border: 1px solid rgba(2, 254, 2, 0.2);
+}
+
+.badge-status-ajuste.rejeitado {
+  background-color: rgba(254, 68, 68, 0.1);
+  color: #fe4444;
+  border: 1px solid rgba(254, 68, 68, 0.2);
+}
+
+.card-hist-valores {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.valor-hist {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.valor-hist-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #4a4848;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.valor-hist-hora {
+  font-size: 16px;
+  font-weight: 700;
+  color: #b0adad;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+}
+
+.valor-hist-hora.destaque {
+  color: #02FE02;
+}
+
+.card-hist-seta {
+  font-size: 13px;
+  color: #3a3839;
+}
+
+.card-hist-motivo {
+  font-size: 13px;
+  color: #b0adad;
+  background-color: #1a1819;
+  border: 1px solid #333133;
+  border-radius: 8px;
+  padding: 10px 14px;
+  line-height: 1.5;
+}
+
+.card-hist-data {
+  font-size: 11px;
+  color: #4a4848;
+}
+
 /* ─── Responsivo ───────────────────────────────────────────────── */
 
 @media (max-width: 520px) {
@@ -405,5 +741,19 @@
 
   .filtro-grupo {
     min-width: 100%;
+  }
+
+  .banco-horas {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .form-ajuste-linha {
+    flex-direction: column;
+  }
+
+  .card-hist-ajuste {
+    padding: 14px 16px;
   }
 }
